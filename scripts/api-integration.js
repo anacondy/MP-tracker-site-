@@ -100,12 +100,19 @@ class AIDataManager {
 
     // Setup scheduled updates at specific time
     setupScheduledUpdates() {
-        // Check every minute if it's update time
-        setInterval(() => {
-            this.checkScheduledUpdate();
-        }, 60000); // Check every minute
+        // Check every minute if it's update time, but only when page is visible
+        const checkSchedule = () => {
+            if (document.visibilityState === 'visible') {
+                this.checkScheduledUpdate();
+            }
+        };
         
-        // Also check immediately
+        setInterval(checkSchedule, 60000); // Check every minute
+        
+        // Also check when page becomes visible
+        document.addEventListener('visibilitychange', checkSchedule);
+        
+        // Check immediately
         this.checkScheduledUpdate();
     }
 
@@ -205,7 +212,9 @@ class AIDataManager {
         `;
         
         try {
-            // Note: This is a placeholder. In production, implement actual Gemini API call
+            // Production implementation: Uncomment and configure the API call below
+            // Note: This requires an active API key set in localStorage
+            /*
             const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent', {
                 method: 'POST',
                 headers: {
@@ -226,6 +235,11 @@ class AIDataManager {
             // Parse and return MP data
             // This would need to extract JSON from the AI response
             return this.parseAIResponse(data);
+            */
+            
+            // Demo mode: Return empty array when no API key is configured
+            console.log('Demo mode: Gemini API integration ready but not called (no API key)');
+            return [];
         } catch (error) {
             console.error('Gemini API error:', error);
             return [];
@@ -244,7 +258,9 @@ class AIDataManager {
         `;
         
         try {
-            // Note: This is a placeholder. In production, implement actual OpenAI API call
+            // Production implementation: Uncomment and configure the API call below
+            // Note: This requires an active API key set in localStorage
+            /*
             const response = await fetch('https://api.openai.com/v1/chat/completions', {
                 method: 'POST',
                 headers: {
@@ -262,6 +278,11 @@ class AIDataManager {
             
             const data = await response.json();
             return this.parseAIResponse(data);
+            */
+            
+            // Demo mode: Return empty array when no API key is configured
+            console.log('Demo mode: OpenAI API integration ready but not called (no API key)');
+            return [];
         } catch (error) {
             console.error('OpenAI API error:', error);
             return [];
@@ -311,7 +332,9 @@ class AIDataManager {
     storeMPData(mpData) {
         // Store in localStorage for now
         // In production, use IndexedDB for better performance
-        const storageKey = `mp_data_${mpData.name.replace(/\s+/g, '_')}`;
+        // Create safe key by encoding the name
+        const safeName = encodeURIComponent(mpData.name.replace(/\s+/g, '_'));
+        const storageKey = `mp_data_${safeName}`;
         localStorage.setItem(storageKey, JSON.stringify(mpData));
         console.log(`Stored data for: ${mpData.name}`);
     }
