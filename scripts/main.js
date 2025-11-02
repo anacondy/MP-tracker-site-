@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let traceId = localStorage.getItem('userTraceId');
         if (!traceId) {
             // Generate a unique trace ID
-            traceId = 'trace_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            traceId = 'trace_' + Date.now() + '_' + Math.random().toString(36).substring(2, 11);
             localStorage.setItem('userTraceId', traceId);
             console.log('New trace ID created:', traceId);
         }
@@ -118,4 +118,148 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
+    // === F+S KEYBOARD SHORTCUT: Show Active Users ===
+    let fPressed = false;
+    let sPressed = false;
+    let keyPressTimer = null;
+    let keyPressStartTime = null;
+
+    function showActiveUsers() {
+        // Create overlay and modal if they don't exist
+        if (!document.getElementById('active-users-overlay')) {
+            const overlay = document.createElement('div');
+            overlay.id = 'active-users-overlay';
+            overlay.className = 'active-users-overlay';
+            
+            const modal = document.createElement('div');
+            modal.id = 'active-users-modal';
+            modal.className = 'active-users-modal';
+            
+            // Get all trace IDs from localStorage
+            const traceIds = getAllTraceIds();
+            
+            modal.innerHTML = `
+                <div class="modal-header">
+                    <span class="material-icons">people</span>
+                    <h2>Active Users on Site</h2>
+                    <button class="close-btn" onclick="hideActiveUsers()">
+                        <span class="material-icons">close</span>
+                    </button>
+                </div>
+                <div class="modal-content">
+                    <div class="user-count">
+                        <span class="material-icons">groups</span>
+                        <p><strong>${traceIds.length}</strong> ${traceIds.length === 1 ? 'User' : 'Users'} Currently Active</p>
+                    </div>
+                    <div class="trace-ids-list">
+                        ${traceIds.map(id => `
+                            <div class="trace-id-item">
+                                <span class="material-icons">fingerprint</span>
+                                <code>${id}</code>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(overlay);
+            document.body.appendChild(modal);
+            
+            // Add event listeners
+            overlay.addEventListener('click', hideActiveUsers);
+            
+            // Animate in
+            setTimeout(() => {
+                overlay.classList.add('active');
+                modal.classList.add('active');
+            }, 10);
+        }
+    }
+
+    function hideActiveUsers() {
+        const overlay = document.getElementById('active-users-overlay');
+        const modal = document.getElementById('active-users-modal');
+        
+        if (overlay && modal) {
+            overlay.classList.remove('active');
+            modal.classList.remove('active');
+            
+            setTimeout(() => {
+                overlay.remove();
+                modal.remove();
+            }, 300);
+        }
+    }
+
+    function getAllTraceIds() {
+        // In a real scenario, this would fetch from a server
+        // For now, we'll simulate with the current user's trace ID
+        const currentTraceId = localStorage.getItem('userTraceId');
+        const traceIds = [currentTraceId];
+        
+        // Simulate additional users by generating mock trace IDs
+        // In production, this would come from your backend API
+        const mockUserCount = Math.floor(Math.random() * 10) + 1; // 1-10 users
+        for (let i = 1; i < mockUserCount; i++) {
+            traceIds.push('trace_' + (Date.now() + i) + '_' + Math.random().toString(36).substring(2, 11));
+        }
+        
+        return traceIds;
+    }
+
+    // Make hideActiveUsers available globally
+    window.hideActiveUsers = hideActiveUsers;
+
+    // Key press handlers
+    document.addEventListener('keydown', (e) => {
+        // Check for F key
+        if (e.key === 'f' || e.key === 'F') {
+            if (!fPressed) {
+                fPressed = true;
+                checkBothKeysPressed();
+            }
+        }
+        
+        // Check for S key
+        if (e.key === 's' || e.key === 'S') {
+            if (!sPressed) {
+                sPressed = true;
+                checkBothKeysPressed();
+            }
+        }
+    });
+
+    document.addEventListener('keyup', (e) => {
+        // Release F key
+        if (e.key === 'f' || e.key === 'F') {
+            fPressed = false;
+            resetKeyPressTimer();
+        }
+        
+        // Release S key
+        if (e.key === 's' || e.key === 'S') {
+            sPressed = false;
+            resetKeyPressTimer();
+        }
+    });
+
+    function checkBothKeysPressed() {
+        if (fPressed && sPressed && !keyPressTimer) {
+            // Both keys are pressed, start timer
+            keyPressStartTime = Date.now();
+            keyPressTimer = setTimeout(() => {
+                // 3 seconds have passed
+                showActiveUsers();
+            }, 3000);
+        }
+    }
+
+    function resetKeyPressTimer() {
+        if (keyPressTimer) {
+            clearTimeout(keyPressTimer);
+            keyPressTimer = null;
+            keyPressStartTime = null;
+        }
+    }
 });
