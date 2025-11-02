@@ -2,8 +2,11 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)]()
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-success)](https://anacondy.github.io/MP-tracker-site-/)
 
 A modern, transparent, and user-friendly web application for tracking Indian Members of Parliament (MPs), their performance, and legislative activities.
+
+🌐 **Live Site**: [https://anacondy.github.io/MP-tracker-site-/](https://anacondy.github.io/MP-tracker-site-/)
 
 ![MP Tracker Banner](https://via.placeholder.com/1200x400/0a0a0a/3b9aff?text=MP+Tracker+-+Track+Your+Representatives)
 
@@ -112,6 +115,28 @@ Learn about the project, submit feedback, and support the initiative.
 
 ![About Page](https://via.placeholder.com/800x500/0a0a0a/3b9aff?text=About+Page)
 
+## 📸 Site Features
+
+### Dark Mode Theme
+![Dark Mode](https://via.placeholder.com/800x500/0a0a0a/3b9aff?text=Dark+Mode+Feature)
+
+The site features a beautiful dark mode with glassmorphism effects and smooth transitions.
+
+### Light Mode Theme
+![Light Mode](https://via.placeholder.com/800x500/f5f5f5/3b9aff?text=Light+Mode+Feature)
+
+Switch seamlessly to light mode for comfortable daytime browsing.
+
+### Responsive Design
+![Mobile View](https://via.placeholder.com/400x700/0a0a0a/3b9aff?text=Mobile+Responsive)
+
+Fully optimized for mobile devices with 16:9 and 20:9 aspect ratios.
+
+### Search & Filter
+![Search Feature](https://via.placeholder.com/800x500/0a0a0a/3b9aff?text=Advanced+Search)
+
+Advanced search and filtering capabilities to find MPs by name, constituency, or party.
+
 ## 🌈 Theme System
 
 The site supports both dark and light modes with smooth transitions:
@@ -189,15 +214,54 @@ We welcome contributions! Here's how you can help:
 
 ## 🗺️ Roadmap
 
-### Upcoming Features
-- [ ] Real-time data integration with parliamentary APIs
-- [ ] More detailed MP profiles with voting history
-- [ ] Advanced analytics and visualizations
-- [ ] Multi-language support (Hindi, regional languages)
-- [ ] Email notifications for bill updates
-- [ ] PDF export for reports
-- [ ] Comparison tool for MPs
-- [ ] Historical data and trends
+### Current Features ✅
+- ✅ MP Directory with photos and basic information
+- ✅ Legislation tracker
+- ✅ Advanced search and filtering
+- ✅ Dark/Light mode with theme persistence
+- ✅ Anonymous trace IDs for privacy
+- ✅ Feedback submission system
+- ✅ Mobile-responsive design
+- ✅ Glassmorphism UI design
+
+### Upcoming Features 🚀
+- [ ] **AI-Powered Data Updates**: Automated data gathering using Gemini/OpenAI API
+- [ ] **Scheduled Updates**: Automatic data refresh at scheduled intervals
+- [ ] **Enhanced MP Profiles**: Complete attendance records, questions asked, debates participated
+- [ ] **Criminal Case Tracking**: Transparency in MP criminal records
+- [ ] **Performance Analytics**: Visual charts and performance metrics
+- [ ] **Real-time Notifications**: Alert users about important parliamentary activities
+- [ ] **Comparison Tool**: Compare multiple MPs side-by-side
+- [ ] **Historical Data**: Track MP performance over time
+- [ ] **Multi-language Support**: Hindi and regional language support
+- [ ] **PDF Export**: Generate downloadable MP reports
+- [ ] **Email Notifications**: Subscribe to bill updates
+- [ ] **Data Verification**: Multi-source verification before displaying information
+- [ ] **Interactive Animations**: Enhanced user experience with subtle animations
+
+### In Development 🔨
+- AI data validation system
+- Automated quality checks for MP information
+- Source verification from multiple trusted databases
+
+## 🤖 AI-Powered Data Updates
+
+MP Tracker supports automated data gathering using Gemini or OpenAI API. The system:
+- Gathers MP/MLA information from trusted sources
+- Validates data from multiple sources before adding
+- Ensures complete profiles (minimum 5/7 required fields)
+- Runs scheduled updates at 3:07 AM daily
+- Shows a haunted pumpkin animation during updates 🎃
+
+**For setup instructions, see [API_INTEGRATION_GUIDE.md](API_INTEGRATION_GUIDE.md)**
+
+### Quick Setup
+```javascript
+// Set your API key in browser console
+localStorage.setItem('gemini_api_key', 'YOUR_API_KEY');
+// or
+localStorage.setItem('openai_api_key', 'YOUR_API_KEY');
+```
 
 ## 📄 License
 
@@ -213,8 +277,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - **Feedback**: Use the feedback form on the About page
 - **Issues**: Report bugs through GitHub Issues
-- **Email**: [Your contact email]
-- **Website**: [Your website URL]
+- **Email**: anujmeena2025@gmail.com
+- **GitHub**: [@anacondy](https://github.com/anacondy)
+- **Live Site**: [https://anacondy.github.io/MP-tracker-site-/](https://anacondy.github.io/MP-tracker-site-/)
 
 ## 🌟 Star History
 
