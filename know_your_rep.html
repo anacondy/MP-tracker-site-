@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" class="dark-mode">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Know Your Rep - MP Tracker</title>
+
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/theme.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="navbar">
+        <nav class="nav-links">
+            <a href="index.html">MP Directory</a>
+            <a href="legislation.html">Legislation</a>
+            <a href="know_your_rep.html" class="active">Know Your Rep</a>
+        </nav>
+
+        <div class="theme-switch-wrapper">
+            <label class="theme-switch" for="theme-toggle-checkbox">
+                <input type="checkbox" id="theme-toggle-checkbox" />
+                <span class="slider round"></span>
+            </label>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="content-card">
+            <h1>Know Your Rep</h1>
+
+            <div class="filter-bar">
+                <input type="text" class="filter-search" id="filter-search" placeholder="Search by name or constituency...">
+                <select class="filter-select" id="filter-sort">
+                    <option value="default">Sort by...</option>
+                    <option value="attendance_high">Attendance (High to Low)</option>
+                    <option value="attendance_low">Attendance (Low to High)</option>
+                    <option value="cases_high">Criminal Cases (High to Low)</section>
+                    <option value="questions_high">Questions (High to Low)</option>
+                    <option value="constituency_az">Constituency (A-Z)</option>
+                    <option value="constituency_za">Constituency (Z-A)</option>
+                </select>
+            </div>
+
+            <div class="rep-grid" id="rep-grid-container">
+                </div>
+
+        </div> </main>
+
+    <script src="scripts/filter.js"></script>
+    <script src="scripts/main.js"></script>
+
+</body>
+</html>
