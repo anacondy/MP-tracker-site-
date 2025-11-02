@@ -1,0 +1,734 @@
+/* File: styles/main.css
+  All styles, including navbar scroll, new pages, and mobile responsive queries.
+*/
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+    margin: 0;
+    transition: background-color 0.3s, color 0.3s;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+h1 {
+    padding-bottom: 0.5rem;
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+.intro-text {
+    color: var(--color-text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+/* =========================
+  Navbar
+  =========================
+*/
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    height: 70px;
+
+    background-color: rgba(var(--color-bg-secondary-rgb), 0.7);
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+
+    width: 100%;
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+.nav-links {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.nav-links a {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    margin: 0 1rem;
+    font-size: 1rem;
+    transition: color 0.2s;
+    position: relative;
+    padding-bottom: 5px;
+    display: inline-block;
+}
+
+.nav-links a:hover {
+    color: var(--color-text-primary);
+}
+
+.nav-links a.active {
+    color: var(--color-accent);
+    font-weight: 600;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-accent);
+    border-radius: 1px;
+    transition: width 0.3s ease-in-out;
+}
+
+.nav-links a.active::after,
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* =========================
+  Theme Toggle Switch
+  =========================
+*/
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 28px;
+}
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #333;
+    transition: .4s;
+    border-radius: 28px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--color-accent);
+}
+
+input:checked + .slider:before {
+    transform: translateX(22px);
+}
+
+html.light-mode .slider {
+    background-color: #ccc;
+}
+
+/* =========================
+  MP Card Styling (index.html)
+  =========================
+*/
+.mp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.mp-card {
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    transition: transform 0.2s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transform: translateZ(0);
+}
+
+.mp-card:hover {
+    transform: translateY(-5px);
+}
+
+.mp-photo {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 0 auto 1rem auto;
+    border: 4px solid var(--alliance-other);
+    overflow: hidden;
+    background-color: rgba(var(--color-bg-secondary-rgb), 0.4);
+    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 0 0px var(--alliance-other-light);
+    transition: box-shadow 0.3s ease-out;
+}
+
+/* MP Card Alliance Borders */
+.mp-photo.alliance-nda {
+    border-color: var(--alliance-nda);
+}
+.mp-photo.alliance-india {
+    border-color: var(--alliance-india);
+}
+
+.mp-card:hover .mp-photo.alliance-nda {
+    box-shadow: 0 0 15px 5px var(--alliance-nda-glow);
+}
+.mp-card:hover .mp-photo.alliance-india {
+    box-shadow: 0 0 15px 5px var(--alliance-india-glow);
+}
+.mp-card:hover .mp-photo.alliance-other {
+    box-shadow: 0 0 15px 5px var(--alliance-other-glow);
+}
+
+.mp-card .ripple-effect {
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(var(--color-accent-rgb), 0.3);
+    animation: ripple-pulse 0.6s forwards;
+    transform: scale(0);
+    pointer-events: none;
+    z-index: 3;
+}
+
+@keyframes ripple-pulse {
+    to {
+        transform: scale(2.5);
+        opacity: 0;
+    }
+}
+
+.mp-photo img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 2;
+    border-radius: 50%;
+}
+
+.mp-initials {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    z-index: 1;
+}
+
+.mp-card h3 {
+    margin: 0.5rem 0 0.25rem 0;
+    color: var(--color-text-primary);
+    font-size: 1.1rem;
+}
+
+.mp-card p {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+}
+
+/* ====================================
+  Legislation Page (legislation.html)
+  ====================================
+*/
+.legislation-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.legislation-list {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.legislation-item {
+    background-color: rgba(var(--color-bg-secondary-rgb), 0.3);
+    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid var(--color-border-transparent);
+}
+
+.legislation-link:hover .legislation-item {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.legislation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+    flex-wrap: wrap;
+}
+
+.legislation-header h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    line-height: 1.3;
+    flex-basis: 100%;
+}
+
+.legislation-header .year {
+    color: var(--color-accent);
+    font-weight: 600;
+}
+
+.house-tag {
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    margin-right: 0.5rem;
+    color: white;
+    background-color: #6c757d;
+    text-transform: uppercase;
+}
+
+.house-tag.ls {
+    background-color: #E91E63; /* Pink */
+}
+
+.house-tag.rs {
+    background-color: #dc3545; /* Red */
+}
+
+.bill-status {
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    color: white;
+    margin-left: auto;
+}
+
+.bill-status.status-passed {
+    background-color: #28a745;
+}
+
+.bill-status.status-pending {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.bill-status.status-jpc {
+    background-color: #d9534f;
+    color: white;
+}
+
+.bill-status.status-withdrawn,
+.bill-status.status-repealed {
+    background-color: #6c757d; /* Grey */
+    color: white;
+}
+
+.legislation-summary {
+    color: var(--color-text-secondary);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.legislation-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+}
+
+.legislation-details .ministry {
+    font-style: italic;
+    color: #DC143C; /* Crimson Red */
+    font-weight: 600;
+}
+
+/* ====================================
+  Legislation Detail Page (legislation_detail.html)
+  ====================================
+*/
+.detail-header {
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.detail-header h1 {
+    margin-bottom: 0.5rem;
+}
+
+.detail-header .year {
+    color: var(--color-accent);
+    font-weight: 700;
+}
+
+.header-tags {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.detail-intro {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+    max-width: 80ch;
+    margin-bottom: 2rem;
+}
+
+.detail-key-info {
+    background-color: rgba(var(--color-bg-secondary-rgb), 0.3);
+    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+}
+
+.detail-key-info h3 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 0.5rem;
+}
+
+.detail-key-info ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.detail-key-info li {
+    font-size: 1.1rem;
+    color: var(--color-text-primary);
+    margin-bottom: 0.75rem;
+}
+
+.detail-key-info li strong {
+    color: var(--color-text-secondary);
+    width: 150px;
+    display: inline-block;
+}
+
+.detail-key-info .ministry {
+    font-style: italic;
+    color: #DC143C;
+    font-weight: 600;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.detail-box {
+    background-color: rgba(var(--color-bg-secondary-rgb), 0.3);
+    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+}
+
+.detail-box h4 {
+    font-size: 1.3rem;
+    margin-top: 0;
+    color: var(--color-text-primary);
+}
+
+.detail-box p, .detail-box ul {
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+}
+
+.detail-box li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+/* ====================================
+  Know Your Rep Page (know_your_rep.html)
+  ====================================
+*/
+.filter-bar {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.filter-search {
+    flex-grow: 1;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background-color: rgba(var(--color-bg-secondary-rgb), 0.4);
+    color: var(--color-text-primary);
+}
+
+.filter-select {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background-color: rgba(var(--color-bg-secondary-rgb), 0.4);
+    color: var(--color-text-primary);
+}
+
+.rep-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+.no-results {
+    color: var(--color-text-secondary);
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 2rem;
+}
+
+.rep-card {
+    display: flex;
+    flex-direction: row;
+    background-color: rgba(var(--color-bg-secondary-rgb), 0.3);
+    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
+    border-radius: 12px;
+    padding: 1.5rem;
+    align-items: center;
+}
+
+.rep-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-basis: 40%;
+}
+
+.rep-photo {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid var(--alliance-other); /* Default border */
+    overflow: hidden;
+    background-color: rgba(var(--color-bg-secondary-rgb), 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* Rep Card Alliance Borders */
+.rep-photo.alliance-nda {
+    border-color: var(--alliance-nda);
+}
+.rep-photo.alliance-india {
+    border-color: var(--alliance-india);
+}
+/* .alliance-other is the default */
+
+
+.rep-initials {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+}
+
+.rep-info h3 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1.4rem;
+    color: var(--color-text-primary);
+}
+
+.rep-info p {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+}
+
+/* NEW: Crimson Constituency Text */
+.rep-info .constituency {
+    color: #DC143C; /* Crimson */
+    font-weight: 600;
+}
+
+.rep-stats {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    text-align: center;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+}
+
+/* Color highlights for stats */
+.stat-value.highlight-green {
+    color: #28a745;
+}
+
+.stat-value.highlight-red {
+    color: #d9534f;
+}
+
+/* ====================================
+  MOBILE RESPONSIVENESS
+  ====================================
+*/
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    /* --- Navbar --- */
+    .navbar {
+        height: auto;
+        flex-direction: column;
+        padding: 0.5rem 1rem;
+    }
+
+    .nav-links {
+        order: 2;
+        width: 100%;
+        text-align: center;
+        padding: 0.5rem 0;
+    }
+
+    .nav-links a {
+        margin: 0 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .theme-switch-wrapper {
+        order: 1;
+        align-self: flex-end;
+    }
+
+    /* --- MP Grid (Index) --- */
+    .mp-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    /* --- Legislation List --- */
+    .legislation-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .legislation-header h2 {
+        font-size: 1.2rem;
+    }
+
+    .bill-status {
+        margin-left: 0;
+    }
+
+    .legislation-item {
+        padding: 1rem;
+    }
+
+    /* --- Legislation Detail --- */
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-key-info li {
+        font-size: 1rem;
+    }
+
+    .detail-key-info li strong {
+        width: 120px;
+    }
+
+    /* --- Know Your Rep --- */
+    .filter-bar {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .rep-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .rep-header {
+        flex-basis: auto;
+    }
+
+    .rep-stats {
+        width: 100%;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .stat-value {
+        font-size: 1.8rem;
+    }
+}
