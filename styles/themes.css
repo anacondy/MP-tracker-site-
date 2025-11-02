@@ -40,6 +40,14 @@ html.dark-mode {
 
     /* RGB values for semi-transparent backgrounds with backdrop-filter */
     --color-bg-secondary-rgb: 26, 26, 26; /* RGB for #1a1a1a */
+    
+    /* Toggle switch colors for dark mode */
+    --toggle-bg: #333;
+    --toggle-crown: #FFD700; /* Golden yellow for dark mode */
+    
+    /* Glow colors for dark mode */
+    --glow-color: rgba(255, 215, 0, 0.4); /* Golden glow */
+    --glow-color-rgb: 255, 215, 0;
 }
 
 /* =========================
@@ -57,4 +65,12 @@ html.light-mode {
 
     /* RGB values for semi-transparent backgrounds with backdrop-filter */
     --color-bg-secondary-rgb: 255, 255, 255; /* RGB for #ffffff */
+    
+    /* Toggle switch colors for light mode */
+    --toggle-bg: #ccc;
+    --toggle-crown: #0275d8; /* Blue for light mode */
+    
+    /* Glow colors for light mode */
+    --glow-color: rgba(2, 117, 216, 0.3); /* Blue glow */
+    --glow-color-rgb: 2, 117, 216;
 }
