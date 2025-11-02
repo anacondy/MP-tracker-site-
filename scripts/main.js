@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let traceId = localStorage.getItem('userTraceId');
         if (!traceId) {
             // Generate a unique trace ID
-            traceId = 'trace_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            traceId = 'trace_' + Date.now() + '_' + Math.random().toString(36).substring(2, 11);
             localStorage.setItem('userTraceId', traceId);
             console.log('New trace ID created:', traceId);
         }
@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // In production, this would come from your backend API
         const mockUserCount = Math.floor(Math.random() * 10) + 1; // 1-10 users
         for (let i = 1; i < mockUserCount; i++) {
-            traceIds.push('trace_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9));
+            traceIds.push('trace_' + (Date.now() + i) + '_' + Math.random().toString(36).substring(2, 11));
         }
         
         return traceIds;
