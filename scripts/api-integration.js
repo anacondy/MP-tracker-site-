@@ -332,6 +332,13 @@ class AIDataManager {
     storeMPData(mpData) {
         // Store in localStorage for now
         // In production, use IndexedDB for better performance
+        
+        // Validate mpData has required fields
+        if (!mpData || !mpData.name) {
+            console.error('Cannot store MP data: missing name field');
+            return;
+        }
+        
         // Create safe key by encoding the name
         const safeName = encodeURIComponent(mpData.name.replace(/\s+/g, '_'));
         const storageKey = `mp_data_${safeName}`;

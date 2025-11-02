@@ -26,7 +26,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    filter: drop-shadow(0 0 20px rgba(255, 140, 0, 0.6));
     animation: pumpkinGlow 2s ease-in-out infinite;
 }
 
