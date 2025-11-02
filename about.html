@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" class="dark-mode">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https: data:; script-src 'self' 'unsafe-inline';">
+    <title>About - MP Tracker</title>
+
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/themes.css">
+    <link rel="stylesheet" href="styles/about.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="navbar">
+        <nav class="nav-links">
+            <a href="index.html">MP Directory</a>
+            <a href="legislation.html">Legislation</a>
+            <a href="know_your_rep.html">Know Your Rep</a>
+            <a href="about.html" class="active">About</a>
+        </nav>
+
+        <div class="theme-switch-wrapper">
+            <label class="theme-switch" for="theme-toggle-checkbox">
+                <input type="checkbox" id="theme-toggle-checkbox" />
+                <span class="slider round"></span>
+            </label>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1>About MP Tracker</h1>
+
+        <section class="about-section">
+            <div class="about-card">
+                <h2>Our Mission</h2>
+                <p>MP Tracker is a transparent, citizen-focused platform designed to help you stay informed about your elected representatives. We believe in empowering citizens with accessible, accurate information about parliamentary activities, legislation, and the performance of Members of Parliament.</p>
+            </div>
+
+            <div class="about-card">
+                <h2>Privacy & Security</h2>
+                <p>Your privacy matters to us. We use anonymous trace IDs to ensure your browsing is private while helping us improve the platform. No personal data is collected without your consent, and all feedback submissions are securely handled.</p>
+                <div class="trace-info">
+                    <p><strong>Your Anonymous Trace ID:</strong> <span id="user-trace-id">Loading...</span></p>
+                </div>
+            </div>
+
+            <div class="about-card">
+                <h2>Features</h2>
+                <ul class="features-list">
+                    <li>✓ Real-time tracking of MPs and their performance</li>
+                    <li>✓ Comprehensive legislation database</li>
+                    <li>✓ Search by name, constituency, or party</li>
+                    <li>✓ Dark/Light mode support</li>
+                    <li>✓ Mobile-optimized for all devices</li>
+                    <li>✓ Anonymous browsing with trace IDs</li>
+                    <li>✓ Secure and transparent data handling</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="feedback-section">
+            <h2>Send Us Feedback</h2>
+            <p class="intro-text">Help us improve MP Tracker by sharing your thoughts, suggestions, or reporting issues.</p>
+            
+            <form id="feedback-form" class="feedback-form">
+                <div class="form-group">
+                    <label for="feedback-type">Feedback Type</label>
+                    <select id="feedback-type" name="type" required>
+                        <option value="">Select type...</option>
+                        <option value="bug">Bug Report</option>
+                        <option value="feature">Feature Request</option>
+                        <option value="general">General Feedback</option>
+                        <option value="data">Data Correction</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="feedback-email">Email (Optional)</label>
+                    <input type="email" id="feedback-email" name="email" placeholder="your.email@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="feedback-message">Message *</label>
+                    <textarea id="feedback-message" name="message" rows="6" placeholder="Share your feedback here..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary">Submit Feedback</button>
+            </form>
+
+            <div id="feedback-success" class="success-message" style="display: none;">
+                <p>✓ Thank you for your feedback! We appreciate your input.</p>
+            </div>
+        </section>
+
+        <section class="support-section">
+            <h2>Support Our Work</h2>
+            <p class="intro-text">MP Tracker is a community-driven project. Your support helps us maintain and improve the platform.</p>
+            
+            <div class="support-options">
+                <div class="support-card">
+                    <h3>🤝 Contribute</h3>
+                    <p>Help us add more data, improve features, or report inaccuracies.</p>
+                    <a href="#feedback-form" class="btn-secondary">Share Feedback</a>
+                </div>
+
+                <div class="support-card">
+                    <h3>💝 Donate</h3>
+                    <p>Support our servers and development efforts.</p>
+                    <button class="btn-secondary" onclick="alert('Donation system coming soon! Thank you for your interest.')">Donate Now</button>
+                </div>
+
+                <div class="support-card">
+                    <h3>📢 Spread the Word</h3>
+                    <p>Help others discover MP Tracker and stay informed.</p>
+                    <button class="btn-secondary" onclick="shareWebsite()">Share</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="tech-section">
+            <h2>Technology Stack</h2>
+            <p>Built with modern web technologies for speed, security, and accessibility:</p>
+            <div class="tech-tags">
+                <span class="tech-tag">HTML5</span>
+                <span class="tech-tag">CSS3</span>
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">SQLite</span>
+                <span class="tech-tag">Responsive Design</span>
+                <span class="tech-tag">Progressive Enhancement</span>
+            </div>
+        </section>
+    </main>
+
+    <script src="scripts/main.js"></script>
+    <script src="scripts/about.js"></script>
+
+</body>
+</html>

@@ -7,7 +7,7 @@ body {
     background-color: var(--color-bg);
     color: var(--color-text-primary);
     margin: 0;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.4s ease, color 0.4s ease;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -20,14 +20,14 @@ body {
 
 h1 {
     padding-bottom: 0.5rem;
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     font-weight: 600;
 }
 
 .intro-text {
     color: var(--color-text-secondary);
-    font-size: 1.1rem;
-    line-height: 1.6;
+    font-size: 1.2rem;
+    line-height: 1.7;
     margin-bottom: 2rem;
 }
 
@@ -42,13 +42,14 @@ h1 {
     padding: 0 2rem;
     height: 70px;
 
-    background-color: rgba(var(--color-bg-secondary-rgb), 0.7);
-    backdrop-filter: blur(10px) saturate(180%);
-    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    background-color: rgba(var(--color-bg-secondary-rgb), 0.5);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
 
     width: 100%;
     z-index: 1000;
     box-sizing: border-box;
+    transition: background-color 0.4s ease;
 }
 
 .nav-links {
@@ -60,8 +61,8 @@ h1 {
     color: var(--color-text-secondary);
     text-decoration: none;
     margin: 0 1rem;
-    font-size: 1rem;
-    transition: color 0.2s;
+    font-size: 1.05rem;
+    transition: color 0.3s ease;
     position: relative;
     padding-bottom: 5px;
     display: inline-block;
@@ -166,7 +167,7 @@ html.light-mode .slider {
     border-radius: 12px;
     padding: 1rem;
     text-align: center;
-    transition: transform 0.2s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
     position: relative;
     overflow: hidden;
@@ -185,14 +186,14 @@ html.light-mode .slider {
     margin: 0 auto 1rem auto;
     border: 4px solid var(--alliance-other);
     overflow: hidden;
-    background-color: rgba(var(--color-bg-secondary-rgb), 0.4);
-    backdrop-filter: blur(8px) saturate(180%);
-    -webkit-backdrop-filter: blur(8px) saturate(180%);
+    background-color: rgba(var(--color-bg-secondary-rgb), 0.3);
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 0 0 0 0px var(--alliance-other-light);
-    transition: box-shadow 0.3s ease-out;
+    transition: box-shadow 0.3s ease-out, transform 0.3s ease;
 }
 
 /* MP Card Alliance Borders */
@@ -259,13 +260,13 @@ html.light-mode .slider {
 .mp-card h3 {
     margin: 0.5rem 0 0.25rem 0;
     color: var(--color-text-primary);
-    font-size: 1.1rem;
+    font-size: 1.15rem;
 }
 
 .mp-card p {
     margin: 0;
     color: var(--color-text-secondary);
-    font-size: 0.9rem;
+    font-size: 0.95rem;
 }
 
 /* ====================================
@@ -284,12 +285,12 @@ html.light-mode .slider {
 }
 
 .legislation-item {
-    background-color: rgba(var(--color-bg-secondary-rgb), 0.3);
-    backdrop-filter: blur(8px) saturate(180%);
-    -webkit-backdrop-filter: blur(8px) saturate(180%);
+    background-color: rgba(var(--color-bg-secondary-rgb), 0.25);
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
     border-radius: 12px;
     padding: 1.5rem;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 1px solid var(--color-border-transparent);
 }
 
@@ -308,7 +309,7 @@ html.light-mode .slider {
 
 .legislation-header h2 {
     margin: 0;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     font-weight: 600;
     color: var(--color-text-primary);
     line-height: 1.3;
@@ -421,9 +422,9 @@ html.light-mode .slider {
 }
 
 .detail-key-info {
-    background-color: rgba(var(--color-bg-secondary-rgb), 0.3);
-    backdrop-filter: blur(8px) saturate(180%);
-    -webkit-backdrop-filter: blur(8px) saturate(180%);
+    background-color: rgba(var(--color-bg-secondary-rgb), 0.25);
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
     border-radius: 12px;
     padding: 1.5rem 2rem;
     margin-bottom: 2rem;
@@ -466,9 +467,9 @@ html.light-mode .slider {
 }
 
 .detail-box {
-    background-color: rgba(var(--color-bg-secondary-rgb), 0.3);
-    backdrop-filter: blur(8px) saturate(180%);
-    -webkit-backdrop-filter: blur(8px) saturate(180%);
+    background-color: rgba(var(--color-bg-secondary-rgb), 0.25);
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
     border-radius: 12px;
     padding: 1.5rem 2rem;
 }
@@ -502,20 +503,36 @@ html.light-mode .slider {
 .filter-search {
     flex-grow: 1;
     padding: 0.75rem 1rem;
-    font-size: 1rem;
+    font-size: 1.05rem;
     border: 1px solid var(--color-border);
     border-radius: 8px;
-    background-color: rgba(var(--color-bg-secondary-rgb), 0.4);
+    background-color: rgba(var(--color-bg-secondary-rgb), 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     color: var(--color-text-primary);
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.filter-search:focus {
+    outline: none;
+    border-color: var(--color-accent);
 }
 
 .filter-select {
     padding: 0.75rem 1rem;
-    font-size: 1rem;
+    font-size: 1.05rem;
     border: 1px solid var(--color-border);
     border-radius: 8px;
-    background-color: rgba(var(--color-bg-secondary-rgb), 0.4);
+    background-color: rgba(var(--color-bg-secondary-rgb), 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     color: var(--color-text-primary);
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: var(--color-accent);
 }
 
 .rep-grid {
@@ -534,12 +551,18 @@ html.light-mode .slider {
 .rep-card {
     display: flex;
     flex-direction: row;
-    background-color: rgba(var(--color-bg-secondary-rgb), 0.3);
-    backdrop-filter: blur(8px) saturate(180%);
-    -webkit-backdrop-filter: blur(8px) saturate(180%);
+    background-color: rgba(var(--color-bg-secondary-rgb), 0.25);
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
     border-radius: 12px;
     padding: 1.5rem;
     align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.rep-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 .rep-header {
@@ -556,7 +579,9 @@ html.light-mode .slider {
     border-radius: 50%;
     border: 3px solid var(--alliance-other); /* Default border */
     overflow: hidden;
-    background-color: rgba(var(--color-bg-secondary-rgb), 0.4);
+    background-color: rgba(var(--color-bg-secondary-rgb), 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -581,13 +606,13 @@ html.light-mode .slider {
 
 .rep-info h3 {
     margin: 0 0 0.25rem 0;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     color: var(--color-text-primary);
 }
 
 .rep-info p {
     margin: 0;
-    font-size: 1rem;
+    font-size: 1.05rem;
     color: var(--color-text-secondary);
 }
 
@@ -641,7 +666,7 @@ html.light-mode .slider {
     }
 
     h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
     }
 
     /* --- Navbar --- */
@@ -660,7 +685,7 @@ html.light-mode .slider {
 
     .nav-links a {
         margin: 0 0.5rem;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
     }
 
     .theme-switch-wrapper {
@@ -682,7 +707,7 @@ html.light-mode .slider {
     }
 
     .legislation-header h2 {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
     }
 
     .bill-status {
@@ -699,7 +724,7 @@ html.light-mode .slider {
     }
 
     .detail-key-info li {
-        font-size: 1rem;
+        font-size: 1.05rem;
     }
 
     .detail-key-info li strong {
@@ -730,5 +755,48 @@ html.light-mode .slider {
 
     .stat-value {
         font-size: 1.8rem;
+    }
+}
+
+/* Extra optimizations for 20:9 aspect ratio devices (taller phones) */
+@media (max-width: 768px) and (min-aspect-ratio: 9/19) {
+    .container {
+        padding: 1.25rem;
+    }
+    
+    .mp-grid {
+        gap: 1.25rem;
+    }
+    
+    .rep-card {
+        padding: 1.75rem;
+    }
+}
+
+/* Optimizations for very small devices */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    .nav-links a {
+        font-size: 0.85rem;
+        margin: 0 0.3rem;
+    }
+    
+    .mp-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .mp-card h3 {
+        font-size: 1.05rem;
+    }
+    
+    .legislation-header h2 {
+        font-size: 1.15rem;
+    }
+    
+    .rep-info h3 {
+        font-size: 1.3rem;
     }
 }

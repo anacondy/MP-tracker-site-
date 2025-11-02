@@ -1,0 +1,321 @@
+/* File: styles/about.css
+   Specific styles for the About page
+*/
+
+.about-section {
+    margin-bottom: 3rem;
+}
+
+.about-card {
+    background-color: rgba(var(--color-bg-secondary-rgb), 0.25);
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--color-border-transparent);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.about-card h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    color: var(--color-text-primary);
+}
+
+.about-card p {
+    line-height: 1.7;
+    font-size: 1.1rem;
+    color: var(--color-text-secondary);
+}
+
+.features-list {
+    list-style: none;
+    padding-left: 0;
+    font-size: 1.1rem;
+}
+
+.features-list li {
+    padding: 0.5rem 0;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+}
+
+.trace-info {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: rgba(var(--color-accent-rgb), 0.1);
+    border-radius: 8px;
+    border-left: 4px solid var(--color-accent);
+}
+
+.trace-info p {
+    margin: 0;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+}
+
+.trace-info strong {
+    color: var(--color-text-primary);
+}
+
+.trace-info span {
+    color: var(--color-accent);
+    font-weight: 600;
+}
+
+/* Feedback Section */
+.feedback-section {
+    margin-bottom: 3rem;
+}
+
+.feedback-section h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-text-primary);
+}
+
+.feedback-form {
+    background-color: rgba(var(--color-bg-secondary-rgb), 0.25);
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    border-radius: 12px;
+    padding: 2rem;
+    border: 1px solid var(--color-border-transparent);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--color-text-primary);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1.05rem;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background-color: rgba(var(--color-bg-secondary-rgb), 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    background-color: rgba(var(--color-bg-secondary-rgb), 0.7);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.btn-primary {
+    background-color: var(--color-accent);
+    color: white;
+    padding: 0.9rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-accent-hover);
+    transform: translateY(-2px);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.success-message {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background-color: rgba(40, 167, 69, 0.1);
+    border-left: 4px solid #28a745;
+    border-radius: 8px;
+    animation: slideDown 0.4s ease;
+}
+
+.success-message p {
+    margin: 0;
+    color: #28a745;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Support Section */
+.support-section {
+    margin-bottom: 3rem;
+}
+
+.support-section h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-text-primary);
+}
+
+.support-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.support-card {
+    background-color: rgba(var(--color-bg-secondary-rgb), 0.25);
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    border: 1px solid var(--color-border-transparent);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.support-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.support-card h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: var(--color-text-primary);
+}
+
+.support-card p {
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    font-size: 1.05rem;
+    color: var(--color-text-secondary);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--color-accent);
+    padding: 0.75rem 1.5rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border: 2px solid var(--color-accent);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-accent);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.btn-secondary:active {
+    transform: translateY(0);
+}
+
+/* Technology Section */
+.tech-section {
+    margin-bottom: 3rem;
+}
+
+.tech-section h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-text-primary);
+}
+
+.tech-section p {
+    font-size: 1.1rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.tech-tag {
+    background-color: rgba(var(--color-accent-rgb), 0.15);
+    color: var(--color-accent);
+    padding: 0.6rem 1.2rem;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: 1px solid var(--color-accent);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.tech-tag:hover {
+    background-color: rgba(var(--color-accent-rgb), 0.3);
+    transform: scale(1.05);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .about-card,
+    .feedback-form,
+    .support-card {
+        padding: 1.5rem;
+    }
+
+    .about-card h2,
+    .feedback-section h2,
+    .support-section h2,
+    .tech-section h2 {
+        font-size: 1.6rem;
+    }
+
+    .support-options {
+        grid-template-columns: 1fr;
+    }
+
+    .tech-tags {
+        gap: 0.75rem;
+    }
+
+    .tech-tag {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+}
