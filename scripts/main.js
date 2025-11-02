@@ -1,40 +1,55 @@
 /*
   File: scripts/main.js
-  This script handles the theme switching and MP card ripple effect.
+  This script handles the theme switching, MP card ripple effect, and user trace ID.
 */
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // === NEW: Theme Toggle Switch ===
+    // === TRACE ID FEATURE ===
+    // Generate or retrieve anonymous trace ID for the user
+    function getOrCreateTraceId() {
+        let traceId = localStorage.getItem('userTraceId');
+        if (!traceId) {
+            // Generate a unique trace ID
+            traceId = 'trace_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            localStorage.setItem('userTraceId', traceId);
+            console.log('New trace ID created:', traceId);
+        }
+        return traceId;
+    }
+
+    // Initialize trace ID
+    const userTraceId = getOrCreateTraceId();
+
+    // === THEME TOGGLE SWITCH WITH PERSISTENCE ===
     const themeToggle = document.getElementById('theme-toggle-checkbox');
     const htmlElement = document.documentElement;
+
+    // Load saved theme from localStorage or default to dark
+    const savedTheme = localStorage.getItem('theme') || 'dark-mode';
+    htmlElement.className = savedTheme;
+    
+    // Set checkbox state based on saved theme
+    themeToggle.checked = (savedTheme === 'light-mode');
 
     // Function to set theme based on checkbox
     function toggleTheme() {
         if (themeToggle.checked) {
             // If checked, it's LIGHT mode
-            htmlElement.classList.add('light-mode');
-            htmlElement.classList.remove('dark-mode');
+            htmlElement.className = 'light-mode';
+            localStorage.setItem('theme', 'light-mode');
         } else {
             // If not checked, it's DARK mode
-            htmlElement.classList.add('dark-mode');
-            htmlElement.classList.remove('light-mode');
+            htmlElement.className = 'dark-mode';
+            localStorage.setItem('theme', 'dark-mode');
         }
     }
 
     // Add click event listener
     themeToggle.addEventListener('click', toggleTheme);
 
-    // Set initial state of the toggle
-    // We default to dark mode, so the checkbox should be UNCHECKED
-    if (htmlElement.classList.contains('light-mode')) {
-        themeToggle.checked = true;
-    } else {
-        themeToggle.checked = false;
-    }
 
-
-    // === MP Card Ripple Effect (No Change) ===
+    // === MP Card Ripple Effect ===
     const mpCards = document.querySelectorAll('.mp-card');
 
     mpCards.forEach(card => {
@@ -72,5 +87,35 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         });
+    });
+
+    // === FIX MP PHOTO CARDS: Hide initials when image loads successfully ===
+    const mpPhotos = document.querySelectorAll('.mp-photo');
+    
+    mpPhotos.forEach(photoContainer => {
+        const img = photoContainer.querySelector('img');
+        const initials = photoContainer.querySelector('.mp-initials');
+        
+        if (img && initials) {
+            // Hide initials initially if image src is valid
+            if (img.complete && img.naturalWidth > 0) {
+                // Image already loaded
+                initials.style.display = 'none';
+            } else {
+                // Show initials by default
+                initials.style.display = 'flex';
+                
+                // When image loads successfully, hide initials
+                img.addEventListener('load', () => {
+                    initials.style.display = 'none';
+                });
+                
+                // If image fails to load, keep showing initials
+                img.addEventListener('error', () => {
+                    initials.style.display = 'flex';
+                    img.style.display = 'none'; // Hide broken image
+                });
+            }
+        }
     });
 });

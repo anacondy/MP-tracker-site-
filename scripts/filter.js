@@ -2,11 +2,11 @@
   File: scripts/filter.js
   Description: This file is the "brain" for the Know Your Rep page.
   It contains the MP data and all logic for filtering, sorting,
-  and rendering the MP cards dynamically.
+  and rendering the MP cards dynamically with IndexedDB support.
 */
 
 // Wait for the DOM to load before running
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
 
     // === 1. MP DATABASE ===
     // This is our list of 20+ sample MPs.
@@ -33,6 +33,17 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: "Tejasvi Surya", party: "BJP", constituency: "Bangalore South", alliance: "NDA", attendance: 77, questions: 150, debates: 40, cases: 1 },
         { name: "S. S. Ahluwalia", party: "BJP", constituency: "Bardhaman-Durgapur", alliance: "NDA", attendance: 90, questions: 220, debates: 85, cases: 0 }
     ];
+
+    // Initialize database if available
+    if (window.MPDatabase) {
+        try {
+            await window.MPDatabase.init();
+            await window.MPDatabase.seed(mps_data);
+            console.log('Database initialized and seeded');
+        } catch (error) {
+            console.error('Database initialization failed:', error);
+        }
+    }
 
     // === 2. GET HTML ELEMENTS ===
     const gridContainer = document.getElementById('rep-grid-container');
@@ -99,16 +110,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // === 4. FILTER AND SORT FUNCTION ===
     // This function runs every time you type or change the sort
-    const filterAndSort = () => {
-        const searchTerm = searchBar.value.toLowerCase();
+    const filterAndSort = async () => {
+        const searchTerm = searchBar.value.toLowerCase().trim();
         const sortValue = sortSelect.value;
 
-        // 1. Filter the list
-        let filteredMPs = mps_data.filter(mp => {
-            const nameMatch = mp.name.toLowerCase().includes(searchTerm);
-            const constMatch = mp.constituency.toLowerCase().includes(searchTerm);
-            return nameMatch || constMatch;
-        });
+        let filteredMPs;
+
+        // Use database search if available and search term is provided
+        if (window.MPDatabase && searchTerm) {
+            try {
+                const dbResults = await window.MPDatabase.search(searchTerm);
+                filteredMPs = dbResults.length > 0 ? dbResults : mps_data.filter(mp => {
+                    const nameMatch = mp.name.toLowerCase().includes(searchTerm);
+                    const constMatch = mp.constituency.toLowerCase().includes(searchTerm);
+                    const partyMatch = mp.party.toLowerCase().includes(searchTerm);
+                    return nameMatch || constMatch || partyMatch;
+                });
+            } catch (error) {
+                console.error('Database search error:', error);
+                // Fallback to array filter
+                filteredMPs = mps_data.filter(mp => {
+                    const nameMatch = mp.name.toLowerCase().includes(searchTerm);
+                    const constMatch = mp.constituency.toLowerCase().includes(searchTerm);
+                    const partyMatch = mp.party.toLowerCase().includes(searchTerm);
+                    return nameMatch || constMatch || partyMatch;
+                });
+            }
+        } else {
+            // Standard array filtering
+            filteredMPs = mps_data.filter(mp => {
+                if (!searchTerm) return true;
+                const nameMatch = mp.name.toLowerCase().includes(searchTerm);
+                const constMatch = mp.constituency.toLowerCase().includes(searchTerm);
+                const partyMatch = mp.party.toLowerCase().includes(searchTerm);
+                return nameMatch || constMatch || partyMatch;
+            });
+        }
 
         // 2. Sort the filtered list
         switch (sortValue) {
