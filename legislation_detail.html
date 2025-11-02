@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" class="dark-mode">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill Details - MP Tracker</title>
+
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/theme.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="navbar">
+        <nav class="nav-links">
+            <a href="index.html">MP Directory</a>
+            <a href="legislation.html" class="active">Legislation</a> <a href="know_your_rep.html">Know Your Rep</a>
+        </nav>
+
+        <div class="theme-switch-wrapper">
+            <label class="theme-switch" for="theme-toggle-checkbox">
+                <input type="checkbox" id="theme-toggle-checkbox" />
+                <span class="slider round"></span>
+            </label>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <div class="detail-header">
+            <h1>The Women's Reservation Bill, <span class="year">2023</span></h1>
+            <div class="header-tags">
+                <span class="house-tag ls">LS</span>
+                <span class="house-tag rs">RS</span>
+                <span class="bill-status status-passed">Passed</span>
+            </div>
+        </div>
+        <p class="detail-intro">
+            This bill aims to reserve one-third of seats for women in the Lok Sabha and State Legislative Assemblies. It was passed by both houses and received presidential assent. Implementation will take place after the next delimitation exercise.
+        </p>
+
+        <div class="detail-key-info">
+            <h3>Key Details</h3>
+            <ul>
+                <li><strong>Bill No:</strong> 128th Amendment Bill</li>
+                <li><strong>Introduced By:</strong> <span class="ministry">Ministry of Law and Justice</span></li>
+                <li><strong>Affects:</strong> Union & All States</li>
+                <li><strong>Lok Sabha Status:</strong> Passed (454 Ayes, 2 Noes)</li>
+                <li><strong>Rajya Sabha Status:</strong> Passed (214 Ayes, 0 Noes)</li>
+            </ul>
+        </div>
+
+        <div class="detail-grid">
+            <div class="detail-box">
+                <h4>Arguments in Favour</h4>
+                <p>Proponents argue this is a historic step towards gender equality and political empowerment, ensuring women's voices are adequately represented in policy-making.</p>
+                <ul>
+                    <li>Corrects historical under-representation.</li>
+                    <li>Leads to more inclusive policies.</li>
+                    <li>Empowers women at the grassroots level.</li>
+                </ul>
+            </div>
+
+            <div class="detail-box">
+                <h4>Arguments Against</h4>
+                <p>Criticism centered on the delay in implementation, as it's tied to a future census and delimitation, and the lack of a "quota within the quota" for OBC women.</p>
+                <ul>
+                    <li>Implementation is not immediate.</li>
+                    <li>No specific reservation for OBC women.</li>
+                    <li>Some argued it rotates seats, preventing MPs from nurturing their constituency.</li>
+                </ul>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="scripts/main.js"></script>
+
+</body>
+</html>
