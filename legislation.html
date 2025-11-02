@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" class="dark-mode">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legislation - MP Tracker</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/theme.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="navbar">
+        <nav class="nav-links">
+            <a href="index.html">MP Directory</a>
+            <a href="legislation.html" class="active">Legislation</a>
+            <a href="know_your_rep.html">Know Your Rep</a>
+        </nav>
+
+        <div class="theme-switch-wrapper">
+            <label class="theme-switch" for="theme-toggle-checkbox">
+                <input type="checkbox" id="theme-toggle-checkbox" />
+                <span class="slider round"></span>
+            </label>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="content-card">
+            <h1>Legislation Tracker</h1>
+
+            <p class="intro-text">Key legislative actions based on your provided data, cross-checked for status and outcome. Click any bill for more details.</p>
+
+            <div class="legislation-list">
+
+                <a href="legislation_detail.html" class="legislation-link">
+                    <div class="legislation-item">
+                        <div class="legislation-header">
+                            <h2>Digital Personal Data Protection Bill, <span class="year">2023</span> <span class="house-tag ls">LS</span><span class="house-tag rs">RS</span></h2>
+                            <span class="bill-status status-passed">Passed</span>
+                        </div>
+                        <p class="legislation-summary">Establishes the framework for processing digital personal data, outlining the rights of individuals and the obligations of data fiduciaries.</p>
+                        <div class="legislation-details">
+                            <span>Date: 07 August <span class="year">2023</span></span>
+                            <span>By: <span class="ministry">Min. of Electronics & IT</span></span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="legislation_detail.html" class="legislation-link">
+                    <div class="legislation-item">
+                        <div class="legislation-header">
+                            <h2>Women's Reservation Bill, <span class="year">2023</span> <span class="house-tag ls">LS</span><span class="house-tag rs">RS</span></h2>
+                            <span class="bill-status status-passed">Passed</span>
+                        </div>
+                        <p class="legislation-summary">Reserves one-third of seats for women in the Lok Sabha and State Legislative Assemblies. Passed unanimously in RS and with 454/456 votes in LS.</p>
+                        <div class="legislation-details">
+                            <span>Date: 21 September <span class="year">2023</span></span>
+                            <span>By: <span class="ministry">Ministry of Law and Justice</span></span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="legislation_detail.html" class="legislation-link">
+                    <div class="legislation-item">
+                        <div class="legislation-header">
+                            <h2>The Three Farm Bills, <span class="year">2020</span> <span class="house-tag ls">LS</span><span class="house-tag rs">RS</span></h2>
+                            <span class="bill-status status-repealed">Repealed</span>
+                        </div>
+                        <p class="legislation-summary">A package of three bills passed in 2020. After widespread protests, they were formally repealed by the Farm Laws Repeal Bill in 2021.</p>
+                        <div class="legislation-details">
+                            <span>Date: 17 September <span class="year">2020</span></span>
+                            <span>By: <span class="ministry">Ministry of Agriculture</span></span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="legislation_detail.html" class="legislation-link">
+                    <div class="legislation-item">
+                        <div class="legislation-header">
+                            <h2>Personal Data Protection Bill, <span class="year">2019</span> <span class="house-tag ls">LS</span></h2>
+                            <span class="bill-status status-withdrawn">Withdrawn</span>
+                        </div>
+                        <p class="legislation-summary">Referred to a JPC for review. The government later withdrew this bill in 2022 to introduce a new, comprehensive framework (which became the 2023 Act).</p>
+                        <div class="legislation-details">
+                            <span>Date: 11 December <span class="year">2019</span></span>
+                            <span>By: <span class="ministry">Min. of Electronics & IT</span></span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="legislation_detail.html" class="legislation-link">
+                    <div class="legislation-item">
+                        <div class="legislation-header">
+                            <h2>Citizenship (Amendment) Bill, <span class="year">2019</span> <span class="house-tag ls">LS</span><span class="house-tag rs">RS</span></h2>
+                            <span class="bill-status status-passed">Passed</span>
+                        </div>
+                        <p class="legislation-summary">Provides a path to Indian citizenship for persecuted religious minorities from Afghanistan, Bangladesh, and Pakistan. Passed by both houses in Dec 2019.</p>
+                        <div class="legislation-details">
+                            <span>Date: 09 December <span class="year">2019</span></span>
+                            <span>By: <span class="ministry">Ministry of Home Affairs</span></span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="legislation_detail.html" class="legislation-link">
+                    <div class="legislation-item">
+                        <div class="legislation-header">
+                            <h2>Electricity (Amendment) Bill, <span class="year">2022</span> <span class="house-tag ls">LS</span></h2>
+                            <span class="bill-status status-jpc">Referred to JPC</span>
+                        </div>
+                        <p class="legislation-summary">Aims to enable competition in the power distribution sector. Was introduced in Lok Sabha and immediately referred to a Joint Parliamentary Committee.</p>
+                        <div class="legislation-details">
+                            <span>Date: 08 August <span class="year">2022</span></span>
+                            <span>By: <span class="ministry">Ministry of Power</span></span>
+                        </div>
+                    </div>
+                </a>
+
+            </div> </div> </main>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>
