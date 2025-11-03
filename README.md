@@ -98,42 +98,41 @@ MP-tracker-site-/
 ### 🏠 MP Directory (index.html)
 Browse through MP profiles with photos, party affiliations, and constituencies.
 
-![MP Directory](https://via.placeholder.com/800x500/0a0a0a/3b9aff?text=MP+Directory)
+![MP Directory Light Mode](screenshots/mp-directory-light.png)
 
 ### 📜 Legislation (legislation.html)
 Track important bills and legislation with status indicators.
 
-![Legislation Tracker](https://via.placeholder.com/800x500/0a0a0a/3b9aff?text=Legislation+Tracker)
+![Legislation Tracker Light Mode](screenshots/legislation-light.png)
 
 ### 🔍 Know Your Rep (know_your_rep.html)
 Search and filter MPs with advanced sorting options.
 
-![Know Your Rep](https://via.placeholder.com/800x500/0a0a0a/3b9aff?text=Know+Your+Rep)
+![Know Your Rep](screenshots/know-your-rep-light.png)
 
 ### ℹ️ About (about.html)
 Learn about the project, submit feedback, and support the initiative.
 
-![About Page](https://via.placeholder.com/800x500/0a0a0a/3b9aff?text=About+Page)
-
 ## 📸 Site Features
 
 ### Dark Mode Theme
-![Dark Mode](https://via.placeholder.com/800x500/0a0a0a/3b9aff?text=Dark+Mode+Feature)
+![Dark Mode - MP Directory](screenshots/mp-directory-dark.png)
 
-The site features a beautiful dark mode with glassmorphism effects and smooth transitions.
+The site features a beautiful dark mode with glassmorphism effects, golden glow on borders, and smooth transitions. The toggle switch shows a golden/yellow crown in dark mode.
 
 ### Light Mode Theme
-![Light Mode](https://via.placeholder.com/800x500/f5f5f5/3b9aff?text=Light+Mode+Feature)
+![Light Mode - Legislation](screenshots/legislation-light.png)
 
-Switch seamlessly to light mode for comfortable daytime browsing.
+Switch seamlessly to light mode for comfortable daytime browsing. Features blue glow effects on borders and a blue toggle switch crown.
+
+### Theme Detection
+The site automatically detects your system's theme preference (dark/light mode) and applies it on first visit. Your manual theme choice is saved and persists across pages.
 
 ### Responsive Design
-![Mobile View](https://via.placeholder.com/400x700/0a0a0a/3b9aff?text=Mobile+Responsive)
-
 Fully optimized for mobile devices with 16:9 and 20:9 aspect ratios.
 
 ### Search & Filter
-![Search Feature](https://via.placeholder.com/800x500/0a0a0a/3b9aff?text=Advanced+Search)
+![Search Feature](screenshots/know-your-rep-light.png)
 
 Advanced search and filtering capabilities to find MPs by name, constituency, or party.
 
@@ -141,10 +140,13 @@ Advanced search and filtering capabilities to find MPs by name, constituency, or
 
 The site supports both dark and light modes with smooth transitions:
 
-- **Dark Mode**: Deep blacks with vibrant accents (default)
-- **Light Mode**: Clean whites with professional tones
-- **Persistent**: Theme choice is saved and persists across pages
-- **Smooth Transitions**: 0.4s ease transitions for comfortable viewing
+- **System Detection**: Automatically detects your device's theme preference on first visit
+- **Dark Mode**: Deep blacks with golden glow effects and yellow toggle crown
+- **Light Mode**: Clean whites with blue glow effects and blue toggle crown  
+- **Persistent**: Manual theme choice is saved and persists across pages
+- **Smooth Transitions**: 0.3s ease transitions for comfortable viewing
+- **Visual Separators**: Subtle separator lines between content sections
+- **Border Glow Effects**: Golden glow in dark mode, blue glow in light mode for better visibility
 
 ## 🔍 Search Features
 
