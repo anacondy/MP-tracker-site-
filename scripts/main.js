@@ -25,12 +25,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeToggle = document.getElementById('theme-toggle-checkbox');
     const htmlElement = document.documentElement;
 
-    // Load saved theme from localStorage or default to dark
-    const savedTheme = localStorage.getItem('theme') || 'dark-mode';
-    htmlElement.className = savedTheme;
+    // Function to detect system theme preference
+    function getSystemTheme() {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+            return 'light-mode';
+        }
+        return 'dark-mode';
+    }
+
+    // Load saved theme from localStorage or use system preference
+    const savedTheme = localStorage.getItem('theme');
+    const initialTheme = savedTheme || getSystemTheme();
+    htmlElement.className = initialTheme;
     
-    // Set checkbox state based on saved theme
-    themeToggle.checked = (savedTheme === 'light-mode');
+    // Set checkbox state based on theme
+    themeToggle.checked = (initialTheme === 'light-mode');
 
     // Function to set theme based on checkbox
     function toggleTheme() {
@@ -47,6 +56,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add click event listener
     themeToggle.addEventListener('click', toggleTheme);
+
+    // Listen for system theme changes
+    if (window.matchMedia) {
+        window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
+            // Only update if user hasn't manually set a preference
+            if (!localStorage.getItem('theme')) {
+                const newTheme = e.matches ? 'light-mode' : 'dark-mode';
+                htmlElement.className = newTheme;
+                themeToggle.checked = (newTheme === 'light-mode');
+            }
+        });
+    }
 
 
     // === MP Card Ripple Effect ===

@@ -10,6 +10,8 @@ body {
     transition: background-color 0.4s ease, color 0.4s ease;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    min-height: 100vh;
 }
 
 .container {
@@ -94,6 +96,17 @@ h1 {
     width: 100%;
 }
 
+/* Separator after About link */
+.navbar::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--color-border), transparent);
+}
+
 /* =========================
   Theme Toggle Switch
   =========================
@@ -123,8 +136,8 @@ h1 {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #333;
-    transition: .4s;
+    background-color: var(--toggle-bg);
+    transition: background-color 0.3s ease;
     border-radius: 28px;
 }
 
@@ -135,21 +148,17 @@ h1 {
     width: 20px;
     left: 4px;
     bottom: 4px;
-    background-color: white;
-    transition: .4s;
+    background-color: var(--toggle-crown);
+    transition: transform 0.3s ease, background-color 0.3s ease;
     border-radius: 50%;
 }
 
 input:checked + .slider {
-    background-color: var(--color-accent);
+    background-color: var(--toggle-bg);
 }
 
 input:checked + .slider:before {
     transform: translateX(22px);
-}
-
-html.light-mode .slider {
-    background-color: #ccc;
 }
 
 /* =========================
@@ -172,10 +181,13 @@ html.light-mode .slider {
     position: relative;
     overflow: hidden;
     transform: translateZ(0);
+    border: 1px solid var(--color-border-transparent);
+    box-shadow: 0 0 0 0 var(--glow-color);
 }
 
 .mp-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 0 15px 2px var(--glow-color), 0 4px 20px rgba(0,0,0,0.15);
 }
 
 .mp-photo {
@@ -292,11 +304,27 @@ html.light-mode .slider {
     padding: 1.5rem;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 1px solid var(--color-border-transparent);
+    box-shadow: 0 0 0 0 var(--glow-color);
+    position: relative;
+}
+
+.legislation-item::after {
+    content: '';
+    position: absolute;
+    bottom: -0.75rem;
+    left: 5%;
+    right: 5%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--color-border), transparent);
+}
+
+.legislation-item:last-child::after {
+    display: none;
 }
 
 .legislation-link:hover .legislation-item {
     transform: translateY(-5px);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 0 20px 2px var(--glow-color), 0 4px 20px rgba(0,0,0,0.2);
 }
 
 .legislation-header {
@@ -558,11 +586,13 @@ html.light-mode .slider {
     padding: 1.5rem;
     align-items: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--color-border-transparent);
+    box-shadow: 0 0 0 0 var(--glow-color);
 }
 
 .rep-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 15px 2px var(--glow-color), 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 .rep-header {
