@@ -269,9 +269,9 @@ class AIDataManager {
                     }],
                     generationConfig: {
                         temperature: 0.2,  // Lower temperature for more factual responses
-                        topK: 20,
-                        topP: 0.8,
-                        maxOutputTokens: 8192,
+                        topK: 20,          // Limits vocabulary for more focused responses
+                        topP: 0.8,         // Nucleus sampling for diversity control
+                        maxOutputTokens: 8192,  // Maximum response length
                     }
                 })
             });
@@ -336,7 +336,7 @@ class AIDataManager {
         try {
             // Production implementation: Uncomment and configure the API call below
             // Note: This requires an active API key set in localStorage
-            // The response_format parameter is commented out as it requires GPT-4 Turbo or later
+            // The response_format parameter requires GPT-4 Turbo (gpt-4-1106-preview) or GPT-4o
             /*
             const response = await fetch('https://api.openai.com/v1/chat/completions', {
                 method: 'POST',
@@ -345,13 +345,13 @@ class AIDataManager {
                     'Authorization': `Bearer ${API_CONFIG.OPENAI_API_KEY}`
                 },
                 body: JSON.stringify({
-                    model: 'gpt-4',
+                    model: 'gpt-4-turbo',  // or 'gpt-4o' for latest model
                     temperature: 0.2,  // Lower temperature for factual accuracy
                     messages: [
                         { role: 'system', content: systemPrompt },
                         { role: 'user', content: userPrompt }
                     ]
-                    // Note: response_format with json_object requires gpt-4-turbo or gpt-4o
+                    // Uncomment below for GPT-4 Turbo or GPT-4o models:
                     // response_format: { type: "json_object" }
                 })
             });

@@ -191,7 +191,7 @@ input:checked + .slider:before {
     transform: translateZ(0);
     border: 1px solid var(--color-border-transparent);
     box-shadow: 0 0 0 0 var(--glow-color);
-    /* Performance: backface-visibility for smoother transforms */
+    /* Performance: prevents visual artifacts in transforms */
     backface-visibility: hidden;
 }
 
@@ -705,7 +705,6 @@ input:checked + .slider:before {
     /* Container with better mobile padding */
     .container {
         padding: 1rem;
-        padding-top: 1rem;
     }
 
     /* Main heading - better size for mobile */
