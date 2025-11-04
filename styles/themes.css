@@ -1,19 +1,18 @@
 /* File: styles/themes.css
-  This file handles all our colors and the theme switching.
+  This file handles all theme colors and the theme switching system.
+  Optimized for performance with faster transitions.
 */
 
-/* We define all our colors as CSS Variables.
-  This makes it super easy to create the light/dark modes.
-*/
+/* Define all colors as CSS Variables for easy theme switching */
 :root {
     --font-sans: 'Inter', sans-serif;
 
-    /* Alliance Colors */
-    --alliance-nda: #d9534f;   /* Red */
-    --alliance-india: #0275d8; /* Blue */
-    --alliance-other: #6c757d; /* Grey */
+    /* Alliance Colors - Used for MP card borders */
+    --alliance-nda: #d9534f;   /* Red for NDA */
+    --alliance-india: #0275d8; /* Blue for INDIA */
+    --alliance-other: #6c757d; /* Grey for Others */
 
-    /* Glow colors for alliances */
+    /* Glow colors for alliance hovers */
     --alliance-nda-glow: rgba(217, 83, 79, 0.4);
     --alliance-india-glow: rgba(2, 117, 216, 0.4);
     --alliance-other-glow: rgba(108, 117, 125, 0.4);
@@ -21,8 +20,8 @@
     /* Hover state for buttons */
     --color-accent-hover: #0260bb;
 
-    /* RGB for accent color for ripple effect */
-    --color-accent-rgb: 2, 117, 216; /* From #0275d8 */
+    /* RGB for accent color (used in ripple effects) */
+    --color-accent-rgb: 2, 117, 216; /* Converted from #0275d8 */
 }
 
 /* =========================
