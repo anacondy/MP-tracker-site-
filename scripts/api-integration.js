@@ -192,23 +192,63 @@ class AIDataManager {
         return [];
     }
 
-    // Fetch data using Gemini API
+    // Fetch data using Gemini API with enhanced prompt
     async fetchFromGemini() {
+        // Enhanced prompt for better data collection with detailed instructions
         const prompt = `
-            Gather information about Indian Members of Parliament (MPs) and Members of Legislative Assembly (MLAs).
-            For each representative, collect the following verified information from trusted sources:
-            1. Full name
-            2. Constituency
-            3. Political party
-            4. Attendance percentage
-            5. Number of questions asked in parliament/assembly
-            6. Number of debates participated in
-            7. Criminal cases (if any)
+            You are a data collector for the MP Tracker platform. Your task is to gather accurate, verified information about Indian Members of Parliament (MPs) and Members of Legislative Assembly (MLAs).
             
-            Only include representatives where you can verify at least 5 of these 7 fields.
-            Verify information from multiple trusted sources like loksabha.gov.in, myneta.info, prsindia.org
+            IMPORTANT INSTRUCTIONS:
+            1. Only collect data from TRUSTED SOURCES:
+               - loksabha.gov.in (Lok Sabha official website)
+               - rajyasabha.gov.in (Rajya Sabha official website)
+               - myneta.info (Association for Democratic Reforms)
+               - prsindia.org (PRS Legislative Research)
+               - eci.gov.in (Election Commission of India)
             
-            Return data in JSON format as an array of objects.
+            2. For EACH representative, collect ALL of the following fields:
+               - name: Full legal name of the MP/MLA
+               - constituency: Electoral constituency they represent
+               - party: Full name of their political party
+               - alliance: Political alliance (NDA, INDIA, or Other)
+               - attendance: Attendance percentage in parliament/assembly (numeric value 0-100)
+               - questions: Total number of questions asked (numeric value)
+               - debates: Total number of debates participated in (numeric value)
+               - criminal_cases: Number of declared criminal cases (numeric value, 0 if none)
+               - sources: Array of URLs from where data was verified (minimum 2 sources)
+            
+            3. DATA QUALITY REQUIREMENTS:
+               - Include ONLY representatives where you can verify at least 5 out of 7 data fields
+               - Cross-verify each data point from at least 2 different sources
+               - Use the most recent data available (prefer current session data)
+               - If a field is unavailable, use null (not empty string or 0)
+            
+            4. OUTPUT FORMAT:
+               Return ONLY valid JSON (no markdown, no code blocks, no explanations).
+               Format: Array of objects with exact field names as specified above.
+               
+            Example of expected output:
+            [
+              {
+                "name": "Example MP Name",
+                "constituency": "Example Constituency",
+                "party": "Example Party",
+                "alliance": "NDA",
+                "attendance": 85,
+                "questions": 120,
+                "debates": 45,
+                "criminal_cases": 0,
+                "sources": ["https://loksabha.gov.in/...", "https://myneta.info/..."]
+              }
+            ]
+            
+            5. FOCUS AREAS:
+               - Prioritize MPs with high public interest (cabinet ministers, opposition leaders, frequent debaters)
+               - Include a diverse mix of parties and alliances
+               - Ensure geographic diversity across different states
+               - Include both experienced and newly elected representatives
+            
+            Start collecting data now. Return JSON array only.
         `;
         
         try {
@@ -226,19 +266,25 @@ class AIDataManager {
                         parts: [{
                             text: prompt
                         }]
-                    }]
+                    }],
+                    generationConfig: {
+                        temperature: 0.2,  // Lower temperature for more factual responses
+                        topK: 20,
+                        topP: 0.8,
+                        maxOutputTokens: 8192,
+                    }
                 })
             });
             
             const data = await response.json();
             
-            // Parse and return MP data
-            // This would need to extract JSON from the AI response
+            // Parse and return MP data from AI response
             return this.parseAIResponse(data);
             */
             
             // Demo mode: Return empty array when no API key is configured
             console.log('Demo mode: Gemini API integration ready but not called (no API key)');
+            console.log('To enable: localStorage.setItem("gemini_api_key", "YOUR_KEY")');
             return [];
         } catch (error) {
             console.error('Gemini API error:', error);
@@ -246,15 +292,45 @@ class AIDataManager {
         }
     }
 
-    // Fetch data using OpenAI API
+    // Fetch data using OpenAI API with enhanced prompt
     async fetchFromOpenAI() {
-        const prompt = `
-            Gather information about Indian Members of Parliament (MPs) and Members of Legislative Assembly (MLAs).
-            For each representative, collect verified information including:
-            name, constituency, party, attendance, questions, debates, criminal cases.
+        // Enhanced prompt matching Gemini's detailed instructions
+        const systemPrompt = `You are a specialized data collector for the MP Tracker platform. Your role is to gather accurate, verified information about Indian Members of Parliament (MPs) and Members of Legislative Assembly (MLAs) from trusted government and NGO sources only.`;
+        
+        const userPrompt = `
+            Collect data about Indian MPs and MLAs following these strict guidelines:
             
-            Only include complete profiles with at least 5 fields verified from multiple trusted sources.
-            Return data in JSON format.
+            TRUSTED SOURCES ONLY:
+            - loksabha.gov.in, rajyasabha.gov.in
+            - myneta.info (ADR)
+            - prsindia.org
+            - eci.gov.in
+            
+            REQUIRED FIELDS for each representative:
+            {
+              "name": "Full legal name",
+              "constituency": "Electoral constituency",
+              "party": "Political party name",
+              "alliance": "NDA, INDIA, or Other",
+              "attendance": numeric (0-100),
+              "questions": numeric (total asked),
+              "debates": numeric (participated in),
+              "criminal_cases": numeric (0 if none),
+              "sources": ["url1", "url2"] (minimum 2 URLs)
+            }
+            
+            REQUIREMENTS:
+            - Verify at least 5/7 fields per representative
+            - Cross-check from minimum 2 sources
+            - Use most recent session data
+            - Set null for unavailable fields (not 0 or empty string)
+            
+            PRIORITIES:
+            - Cabinet ministers and opposition leaders
+            - Active participants (high questions/debates)
+            - Geographic and party diversity
+            
+            Return ONLY valid JSON array. No markdown, no explanations, no code blocks.
         `;
         
         try {
@@ -269,10 +345,12 @@ class AIDataManager {
                 },
                 body: JSON.stringify({
                     model: 'gpt-4',
+                    temperature: 0.2,  // Lower temperature for factual accuracy
                     messages: [
-                        { role: 'system', content: 'You are a helpful assistant that gathers verified information about Indian political representatives.' },
-                        { role: 'user', content: prompt }
-                    ]
+                        { role: 'system', content: systemPrompt },
+                        { role: 'user', content: userPrompt }
+                    ],
+                    response_format: { type: "json_object" }  // Force JSON response
                 })
             });
             
@@ -282,6 +360,7 @@ class AIDataManager {
             
             // Demo mode: Return empty array when no API key is configured
             console.log('Demo mode: OpenAI API integration ready but not called (no API key)');
+            console.log('To enable: localStorage.setItem("openai_api_key", "YOUR_KEY")');
             return [];
         } catch (error) {
             console.error('OpenAI API error:', error);
