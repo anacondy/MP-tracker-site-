@@ -295,7 +295,7 @@ class AIDataManager {
     // Fetch data using OpenAI API with enhanced prompt
     async fetchFromOpenAI() {
         // Enhanced prompt matching Gemini's detailed instructions
-        const systemPrompt = `You are a specialized data collector for the MP Tracker platform. Your role is to gather accurate, verified information about Indian Members of Parliament (MPs) and Members of Legislative Assembly (MLAs) from trusted government and NGO sources only.`;
+        const systemPrompt = `You are a specialized data collector for the MP Tracker platform. Your role is to gather accurate, verified information about Indian Members of Parliament (MPs) and Members of Legislative Assembly (MLAs) from trusted government and NGO sources only. Always return data in valid JSON format.`;
         
         const userPrompt = `
             Collect data about Indian MPs and MLAs following these strict guidelines:
@@ -336,6 +336,7 @@ class AIDataManager {
         try {
             // Production implementation: Uncomment and configure the API call below
             // Note: This requires an active API key set in localStorage
+            // The response_format parameter is commented out as it requires GPT-4 Turbo or later
             /*
             const response = await fetch('https://api.openai.com/v1/chat/completions', {
                 method: 'POST',
@@ -349,8 +350,9 @@ class AIDataManager {
                     messages: [
                         { role: 'system', content: systemPrompt },
                         { role: 'user', content: userPrompt }
-                    ],
-                    response_format: { type: "json_object" }  // Force JSON response
+                    ]
+                    // Note: response_format with json_object requires gpt-4-turbo or gpt-4o
+                    // response_format: { type: "json_object" }
                 })
             });
             

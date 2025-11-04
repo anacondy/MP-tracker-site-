@@ -13,8 +13,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
     min-height: 100vh;
-    /* Performance optimization */
-    will-change: background-color;
+    /* Note: will-change removed as theme changes are infrequent */
 }
 
 /* Main container with responsive padding */
@@ -58,8 +57,7 @@ h1 {
     z-index: 1000;
     box-sizing: border-box;
     transition: background-color 0.3s ease;
-    /* Performance optimization */
-    will-change: background-color;
+    /* Note: will-change removed as navbar background changes are infrequent */
     position: relative;
 }
 
@@ -193,8 +191,7 @@ input:checked + .slider:before {
     transform: translateZ(0);
     border: 1px solid var(--color-border-transparent);
     box-shadow: 0 0 0 0 var(--glow-color);
-    /* Performance optimizations */
-    will-change: transform, box-shadow;
+    /* Performance: backface-visibility for smoother transforms */
     backface-visibility: hidden;
 }
 
