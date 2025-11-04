@@ -1,16 +1,22 @@
 /*
   File: scripts/database.js
-  Simple SQLite-like search functionality using IndexedDB for MP/MLA data
+  Implements SQLite-like search functionality using IndexedDB for MP/MLA data
+  This provides client-side database capabilities for efficient searching and filtering
 */
 
-// Initialize IndexedDB for MP data storage
+// Database configuration constants
 const DB_NAME = 'MPTrackerDB';
 const DB_VERSION = 1;
 const STORE_NAME = 'representatives';
 
+// Global database connection variable
 let db = null;
 
-// Initialize database
+/**
+ * Initialize the IndexedDB database
+ * Creates the database and object stores if they don't exist
+ * @returns {Promise} Resolves with database instance when ready
+ */
 function initDB() {
     return new Promise((resolve, reject) => {
         const request = indexedDB.open(DB_NAME, DB_VERSION);
@@ -26,6 +32,7 @@ function initDB() {
             resolve(db);
         };
 
+        // Handle database upgrade (first time creation or version change)
         request.onupgradeneeded = (e) => {
             db = e.target.result;
 
@@ -33,7 +40,7 @@ function initDB() {
             if (!db.objectStoreNames.contains(STORE_NAME)) {
                 const objectStore = db.createObjectStore(STORE_NAME, { keyPath: 'id', autoIncrement: true });
                 
-                // Create indexes for efficient searching
+                // Create indexes for efficient searching on different fields
                 objectStore.createIndex('name', 'name', { unique: false });
                 objectStore.createIndex('constituency', 'constituency', { unique: false });
                 objectStore.createIndex('party', 'party', { unique: false });
@@ -45,7 +52,11 @@ function initDB() {
     });
 }
 
-// Add representative data to database
+/**
+ * Add a representative to the database
+ * @param {Object} data - Representative data object with fields like name, constituency, party, etc.
+ * @returns {Promise} Resolves with the new record's ID
+ */
 function addRepresentative(data) {
     return new Promise((resolve, reject) => {
         const transaction = db.transaction([STORE_NAME], 'readwrite');
@@ -62,7 +73,12 @@ function addRepresentative(data) {
     });
 }
 
-// Search representatives by name
+/**
+ * Search representatives by name
+ * Uses the name index for efficient searching
+ * @param {string} searchTerm - The name to search for (case-insensitive)
+ * @returns {Promise<Array>} Array of matching representatives
+ */
 function searchByName(searchTerm) {
     return new Promise((resolve, reject) => {
         const transaction = db.transaction([STORE_NAME], 'readonly');
@@ -75,6 +91,7 @@ function searchByName(searchTerm) {
         request.onsuccess = (e) => {
             const cursor = e.target.result;
             if (cursor) {
+                // Case-insensitive search
                 if (cursor.value.name.toLowerCase().includes(searchTerm.toLowerCase())) {
                     results.push(cursor.value);
                 }
@@ -90,7 +107,12 @@ function searchByName(searchTerm) {
     });
 }
 
-// Search representatives by constituency
+/**
+ * Search representatives by constituency
+ * Uses the constituency index for efficient searching
+ * @param {string} searchTerm - The constituency to search for (case-insensitive)
+ * @returns {Promise<Array>} Array of matching representatives
+ */
 function searchByConstituency(searchTerm) {
     return new Promise((resolve, reject) => {
         const transaction = db.transaction([STORE_NAME], 'readonly');
@@ -103,6 +125,7 @@ function searchByConstituency(searchTerm) {
         request.onsuccess = (e) => {
             const cursor = e.target.result;
             if (cursor) {
+                // Case-insensitive search
                 if (cursor.value.constituency.toLowerCase().includes(searchTerm.toLowerCase())) {
                     results.push(cursor.value);
                 }
@@ -118,7 +141,12 @@ function searchByConstituency(searchTerm) {
     });
 }
 
-// Search representatives by party
+/**
+ * Search representatives by party
+ * Uses the party index for efficient searching
+ * @param {string} searchTerm - The party name to search for (case-insensitive)
+ * @returns {Promise<Array>} Array of matching representatives
+ */
 function searchByParty(searchTerm) {
     return new Promise((resolve, reject) => {
         const transaction = db.transaction([STORE_NAME], 'readonly');
@@ -131,6 +159,7 @@ function searchByParty(searchTerm) {
         request.onsuccess = (e) => {
             const cursor = e.target.result;
             if (cursor) {
+                // Case-insensitive search
                 if (cursor.value.party.toLowerCase().includes(searchTerm.toLowerCase())) {
                     results.push(cursor.value);
                 }
@@ -146,17 +175,24 @@ function searchByParty(searchTerm) {
     });
 }
 
-// Universal search function
+/**
+ * Universal search function
+ * Searches across name, constituency, and party fields simultaneously
+ * @param {string} searchTerm - The term to search for across all fields
+ * @returns {Promise<Array>} Array of unique matching representatives
+ */
 function universalSearch(searchTerm) {
     return new Promise(async (resolve, reject) => {
         try {
+            // Search all fields in parallel for better performance
             const [nameResults, constituencyResults, partyResults] = await Promise.all([
                 searchByName(searchTerm),
                 searchByConstituency(searchTerm),
                 searchByParty(searchTerm)
             ]);
 
-            // Combine and deduplicate results
+            // Combine and deduplicate results using Map
+            // This ensures each representative appears only once
             const allResults = [...nameResults, ...constituencyResults, ...partyResults];
             const uniqueResults = Array.from(new Map(allResults.map(item => [item.id, item])).values());
             
@@ -167,7 +203,10 @@ function universalSearch(searchTerm) {
     });
 }
 
-// Get all representatives
+/**
+ * Get all representatives from the database
+ * @returns {Promise<Array>} Array of all representatives
+ */
 function getAllRepresentatives() {
     return new Promise((resolve, reject) => {
         const transaction = db.transaction([STORE_NAME], 'readonly');
@@ -184,15 +223,19 @@ function getAllRepresentatives() {
     });
 }
 
-// Seed database with sample data
+/**
+ * Seed database with sample data
+ * Clears existing data and populates with new MP/MLA records
+ * @param {Array} mps_data - Array of MP/MLA objects to add to database
+ */
 async function seedDatabase(mps_data) {
     try {
-        // Clear existing data first
+        // Clear existing data first to avoid duplicates
         const transaction = db.transaction([STORE_NAME], 'readwrite');
         const objectStore = transaction.objectStore(STORE_NAME);
         await objectStore.clear();
 
-        // Add all MPs
+        // Add all MPs to the database
         for (const mp of mps_data) {
             await addRepresentative(mp);
         }
@@ -203,7 +246,10 @@ async function seedDatabase(mps_data) {
     }
 }
 
-// Export functions for use in other scripts
+/**
+ * Export database functions globally for use in other scripts
+ * Creates a window.MPDatabase object with all available methods
+ */
 if (typeof window !== 'undefined') {
     window.MPDatabase = {
         init: initDB,
