@@ -1,0 +1,18 @@
+{
+  "name": "mp-tracker-site",
+  "version": "1.0.0",
+  "description": "A modern, transparent, and user-friendly web application for tracking Indian Members of Parliament (MPs), their performance, and legislative activities.",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo 'Build process complete'",
+    "start": "echo 'Server started'",
+    "deploy": "gh-pages -d dist"
+  },
+  "author": "anacondy",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "gh-pages": "^4.0.0"
+  }
+}
