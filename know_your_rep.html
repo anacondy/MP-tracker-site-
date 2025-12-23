@@ -2,9 +2,18 @@
 <html lang="en" class="dark-mode">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https: data:; script-src 'self' 'unsafe-inline';">
+    <meta name="description" content="Search and filter Indian MPs by name, constituency, party, or alliance">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
     <title>Know Your Rep - MP Tracker</title>
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
 
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/themes.css">
@@ -40,7 +49,7 @@
                     <option value="default">Sort by...</option>
                     <option value="attendance_high">Attendance (High to Low)</option>
                     <option value="attendance_low">Attendance (Low to High)</option>
-                    <option value="cases_high">Criminal Cases (High to Low)</section>
+                    <option value="cases_high">Criminal Cases (High to Low)</option>
                     <option value="questions_high">Questions (High to Low)</option>
                     <option value="constituency_az">Constituency (A-Z)</option>
                     <option value="constituency_za">Constituency (Z-A)</option>

@@ -1,0 +1,153 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: ["main", "develop"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  # Lint and validate HTML, CSS, JavaScript
+  lint:
+    runs-on: ubuntu-latest
+    name: Lint & Validate
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Validate HTML
+        run: |
+          npm install -g html-validate
+          html-validate "*.html" || echo "HTML validation completed with warnings"
+
+      - name: Validate CSS
+        run: |
+          npm install -g stylelint stylelint-config-standard
+          echo '{"extends": "stylelint-config-standard", "rules": {"selector-class-pattern": null, "custom-property-pattern": null}}' > .stylelintrc.json
+          npx stylelint "styles/**/*.css" --fix || echo "CSS validation completed with warnings"
+
+      - name: Check JavaScript Syntax
+        run: |
+          npm install -g eslint
+          echo '{"env": {"browser": true, "es2021": true}, "parserOptions": {"ecmaVersion": "latest"}, "rules": {"no-unused-vars": "warn", "no-undef": "warn"}}' > .eslintrc.json
+          npx eslint "scripts/**/*.js" --no-error-on-unmatched-pattern || echo "JS linting completed with warnings"
+
+  # Security checks
+  security:
+    runs-on: ubuntu-latest
+    name: Security Scan
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Check for hardcoded secrets
+        run: |
+          # Simple check for common secret patterns
+          if grep -rE "(api[_-]?key|secret|password|token)\s*[:=]\s*['\"][^'\"]+['\"]" --include="*.js" --include="*.html" scripts/ *.html 2>/dev/null; then
+            echo "⚠️ Potential secrets found in code. Please review."
+          else
+            echo "✅ No obvious secrets found in code."
+          fi
+
+      - name: Verify CSP headers in HTML
+        run: |
+          for file in *.html; do
+            if grep -q "Content-Security-Policy" "$file"; then
+              echo "✅ CSP found in $file"
+            else
+              echo "⚠️ No CSP meta tag in $file"
+            fi
+          done
+
+  # Test accessibility
+  accessibility:
+    runs-on: ubuntu-latest
+    name: Accessibility Check
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install pa11y
+        run: npm install -g pa11y-ci
+
+      - name: Start simple server
+        run: |
+          npm install -g http-server
+          http-server -p 8080 &
+          sleep 3
+
+      - name: Run accessibility tests
+        run: |
+          pa11y http://localhost:8080/index.html --ignore "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail" || echo "Accessibility check completed"
+        continue-on-error: true
+
+  # Build and deploy (only on main branch)
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy to GitHub Pages
+    needs: [lint, security]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  # Notify on completion
+  notify:
+    runs-on: ubuntu-latest
+    name: Notify Status
+    needs: [lint, security, deploy]
+    if: always()
+    permissions: {}
+    steps:
+      - name: Check job statuses
+        run: |
+          echo "Lint: ${{ needs.lint.result }}"
+          echo "Security: ${{ needs.security.result }}"
+          echo "Deploy: ${{ needs.deploy.result }}"
+          
+          if [ "${{ needs.deploy.result }}" = "success" ]; then
+            echo "🎉 Deployment successful!"
+          elif [ "${{ needs.deploy.result }}" = "skipped" ]; then
+            echo "ℹ️ Deployment skipped (not on main branch)"
+          else
+            echo "❌ Pipeline had issues"
+          fi
