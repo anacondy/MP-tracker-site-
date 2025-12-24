@@ -1,18 +1,62 @@
-// Dark Mode Toggle
-const toggle = document.getElementById('dark-mode-toggle');
-const body = document.body;
+// Theme Toggle using checkbox
+const themeToggle = document.getElementById('theme-toggle-checkbox');
+const html = document.documentElement;
 
-if (toggle) {
-  toggle.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
-    localStorage.setItem('darkMode', body.classList.contains('dark-mode'));
-  });
+// Initialize theme from localStorage or system preference
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'light') {
+        html.classList.remove('dark-mode');
+        html.classList.add('light-mode');
+        if (themeToggle) themeToggle.checked = true;
+    } else if (savedTheme === 'dark' || prefersDark) {
+        html.classList.add('dark-mode');
+        html.classList.remove('light-mode');
+        if (themeToggle) themeToggle.checked = false;
+    } else {
+        // Default to dark mode
+        html.classList.add('dark-mode');
+        html.classList.remove('light-mode');
+        if (themeToggle) themeToggle.checked = false;
+    }
 }
 
-// Check for saved dark mode preference
-if (localStorage.getItem('darkMode') === 'true') {
-  body.classList.add('dark-mode');
+// Toggle theme
+function toggleTheme() {
+    if (html.classList.contains('dark-mode')) {
+        html.classList.remove('dark-mode');
+        html.classList.add('light-mode');
+        localStorage.setItem('theme', 'light');
+    } else {
+        html.classList.add('dark-mode');
+        html.classList.remove('light-mode');
+        localStorage.setItem('theme', 'dark');
+    }
 }
+
+// Add event listener for theme toggle
+if (themeToggle) {
+    themeToggle.addEventListener('change', toggleTheme);
+}
+
+// Initialize theme on page load
+initTheme();
+
+// Listen for system theme changes
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem('theme')) {
+        if (e.matches) {
+            html.classList.add('dark-mode');
+            html.classList.remove('light-mode');
+        } else {
+            html.classList.remove('dark-mode');
+            html.classList.add('light-mode');
+        }
+        if (themeToggle) themeToggle.checked = !e.matches;
+    }
+});
 
 // Debounce function for scroll/resize events
 function debounce(func, wait) {
